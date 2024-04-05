@@ -1,3 +1,2 @@
-<p align="center">
-  <img src="https://github.com/CiganOliviuAlphablock/machine-learning-E-R-research/assets/160546435/418eb4bf-688d-47e9-82ce-3b2d519eaec1" />
-</p>
+![image](https://github.com/alphablockorg/Unpublished-Research/assets/160546435/555dd266-c165-48ae-8577-c261a664fe46)
+
