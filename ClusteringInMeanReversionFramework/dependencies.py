@@ -7,6 +7,8 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 
+POLYNOMIAL_DEGREE = 3
+
 
 def perform_kmeans_clustering(data_frame, clustering_fields, cmap="viridis",
                               plot_title="K-means Clustering with 3 clusters", save_as_image=False):
@@ -35,11 +37,11 @@ def perform_kmeans_clustering(data_frame, clustering_fields, cmap="viridis",
     plt.show()
 
 
-def perform_polynomial_clustering(data_frame, clustering_fields, plot_title, save_as_image=False):
+def get_polynomial_features(data_frame, clustering_fields):
     xs = data_frame[clustering_fields[0]].values.reshape(-1, 1)
     ys = data_frame[clustering_fields[1]].values
-    degree = 3
-    poly_features = PolynomialFeatures(degree=degree)
+
+    poly_features = PolynomialFeatures(degree=POLYNOMIAL_DEGREE)
     xs_poly = poly_features.fit_transform(xs)
     model = LinearRegression()
     model.fit(xs_poly, ys)
@@ -48,8 +50,14 @@ def perform_polynomial_clustering(data_frame, clustering_fields, plot_title, sav
     xs_pred_poly = poly_features.transform(xs_pred)
     y_pred = model.predict(xs_pred_poly)
 
+    return xs, ys, xs_pred, y_pred
+
+
+def perform_polynomial_on_clustering(data_frame, clustering_fields, plot_title, save_as_image=False):
+    xs, ys, xs_pred, y_pred = get_polynomial_features(data_frame, clustering_fields)
+
     plt.scatter(xs, ys, color='blue', label='Data points')
-    plt.plot(xs_pred, y_pred, color='red', label=f'Polynomial regression (degree={degree})')
+    plt.plot(xs_pred, y_pred, color='red', label=f'Polynomial regression (degree={POLYNOMIAL_DEGREE})')
     plt.xlabel(clustering_fields[0])
     plt.ylabel(clustering_fields[1])
     plt.title(plot_title)
@@ -59,6 +67,20 @@ def perform_polynomial_clustering(data_frame, clustering_fields, plot_title, sav
         plt.savefig("regressions/" + ''.join(random.choices(string.ascii_letters + string.digits, k=10)))
 
     plt.show()
+
+
+def combine_polynomial_plots(data_frame, clustering_fields, plot_color, all_xs_pred=None, all_y_pred=None):
+    xs, ys, xs_pred, y_pred = get_polynomial_features(data_frame, clustering_fields)
+
+    if all_xs_pred is None:
+        all_xs_pred = []
+    if all_y_pred is None:
+        all_y_pred = []
+
+    all_xs_pred.append(xs_pred)
+    all_y_pred.append(y_pred)
+
+    return all_xs_pred, all_y_pred
 
 
 def get_annual_return(initial_value, final_value):
