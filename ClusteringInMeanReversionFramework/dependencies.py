@@ -32,7 +32,7 @@ def perform_kmeans_clustering(data_frame, clustering_fields, cmap="viridis",
     plt.colorbar(label='Cluster')
 
     if save_as_image:
-        plt.savefig("distributions/" + ''.join(random.choices(string.ascii_letters + string.digits, k=10)))
+        plt.savefig("distributions/" + plot_title)
 
     plt.show()
 
@@ -64,12 +64,12 @@ def perform_polynomial_on_clustering(data_frame, clustering_fields, plot_title, 
     plt.legend()
 
     if save_as_image:
-        plt.savefig("regressions/" + ''.join(random.choices(string.ascii_letters + string.digits, k=10)))
+        plt.savefig("regressions/" + plot_title)
 
     plt.show()
 
 
-def combine_polynomial_plots(data_frame, clustering_fields, plot_color, all_xs_pred=None, all_y_pred=None):
+def combine_polynomial_plots(data_frame, clustering_fields, all_xs_pred=None, all_y_pred=None):
     xs, ys, xs_pred, y_pred = get_polynomial_features(data_frame, clustering_fields)
 
     if all_xs_pred is None:
