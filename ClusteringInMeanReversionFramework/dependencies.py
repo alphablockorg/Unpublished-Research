@@ -1,8 +1,6 @@
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-import random
-import string
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
