@@ -83,3 +83,12 @@ def combine_polynomial_plots(data_frame, clustering_fields, all_xs_pred=None, al
 
 def get_annual_return(initial_value, final_value):
     return ((final_value - initial_value) / initial_value) * 100
+
+
+def get_positive_annual_rate(rolling_return, yearly_rate):
+     return ((rolling_return + 100) / 100)**(1 / yearly_rate) - 1
+
+
+def get_negative_annual_rate(rolling_return, yearly_rate):
+    return 1 - ((rolling_return + 100) / 100)**(1 / yearly_rate)
+
